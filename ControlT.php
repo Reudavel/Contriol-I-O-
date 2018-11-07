@@ -7,24 +7,26 @@
 	
 </head>
 <body>
-	<form name="formulario" method="post" action="">
-		<label for="cardNo">Numero de tarjeta.</label>
-		<input name="cardNo" type="number" placeholder="Numero de tarjeta"> 
-		<label for="nombre">Nombre.</label>
-		<input name="nombre" type="text" placeholder="Nombre"><br>
+	<div>
+	<form name="formulario" method="post" action="">	
 		Periodo
 		<input name="fechaI" type="date"  label="Periodo">
 		--------------
 		<input name="fechaF" type="date" label="Periodo">
 		<br>
-		<button type="submit" value="Consulta" name="Consulta">Buscar</button> <button>Borrar</button><br>
-
+		<label for="cardNo">Numero de tarjeta.</label>
+		<input name="cardNo" type="number" maxlength="15"> 
+		<label for="nombre">Nombre.</label>
+		<input name="nombre" type="text"><br>
+		<button type="submit" value="Consulta" name="Consulta">Buscar</button> <button>Borrar</button>
+		<input type="button" onclick="TableToExcel('Consulta', 'Registro de asistencia')" value="Descargar excel"><br>
 	</form>
+	</div>
 	<?php 
 	//Se tiene que definir un dsn (acc2) en el odbc del sistema servidor y tiene que ser de su arquitectura
 	$conn=odbc_connect('acc2', '', '');
 	if ($conn) {
-		echo "Conectado<br>";
+		echo "<p>Conectado</p><br>";
 	}
 	else{
 		echo "NO";
@@ -37,7 +39,14 @@
 			$fechaI = $_POST['fechaI'];
 			//$horaI = $_POST['horaI'];	
 			$fechaF = $_POST['fechaF'];
-			//$horaF = $_POST['horaF'];										
+			//$horaF = $_POST['horaF'];	
+
+	#if (empty($fechaI)&&empty($fechaF) {
+		#Si esta vacio muestra en ultimo dia
+		#$fechaI='fecha ayer';
+		#$fechaF='fecha hoy';
+		#}				
+
 	#Codigo para convertir la fecha del input a buscable en la bd (solo fecha)
 	$fechaIF = date("m/d/Y", strtotime($fechaI));
 	$fechaIF .= " 00:00:00";
@@ -45,14 +54,14 @@
 	$fechaFF = date("m/d/Y", strtotime($fechaF));
 	$fechaFF .= " 00:00:00";
 
-		
+									
 if (empty($_POST["nombre"])) {
 	if (empty($_POST["cardNo"])) {
 		#Consulta con solo fechas
 		$sql="SELECT acc_monitor_log.card_no, USERINFO.CardNo, acc_monitor_log.time, acc_monitor_log.event_point_name, acc_monitor_log.pin, acc_monitor_log.device_id, USERINFO.name, acc_monitor_log.device_id FROM acc_monitor_log  INNER JOIN USERINFO ON acc_monitor_log.[card_no] = USERINFO.[CardNo] WHERE acc_monitor_log.time Between #$fechaIF# AND #$fechaFF# ORDER BY time";
 	}else{
 		#Consulta solo numero de tarjeta y fecha
-  		$sql="SELECT acc_monitor_log.card_no, USERINFO.CardNo,  acc_monitor_log.time, acc_monitor_log.event_point_name, acc_monitor_log.pin, acc_monitor_log.device_id, USERINFO.name FROM acc_monitor_log  INNER JOIN USERINFO ON acc_monitor_log.[card_no] = USERINFO.[CardNo] WHERE USERINFO.CardNo='$cardNo' AND acc_monitor_log.time Between #$fechaIF# AND #$fechaFF#";
+  		$sql="SELECT acc_monitor_log.card_no, USERINFO.CardNo,  acc_monitor_log.time, acc_monitor_log.event_point_name, acc_monitor_log.pin, acc_monitor_log.device_id, USERINFO.name FROM acc_monitor_log  INNER JOIN USERINFO ON acc_monitor_log.[card_no] = USERINFO.[CardNo] WHERE USERINFO.CardNo='$cardNo' AND acc_monitor_log.time Between #$fechaIF# AND #$fechaFF# ORDER BY time";
 
 	}
   	} else {
@@ -61,14 +70,14 @@ if (empty($_POST["nombre"])) {
     	$sql="SELECT acc_monitor_log.card_no, USERINFO.CardNo, acc_monitor_log.time, acc_monitor_log.event_point_name, acc_monitor_log.pin, acc_monitor_log.device_id, USERINFO.name, acc_monitor_log.device_id FROM acc_monitor_log  INNER JOIN USERINFO ON acc_monitor_log.[card_no] = USERINFO.[CardNo] WHERE USERINFO.name='$nombre' AND acc_monitor_log.time Between #$fechaIF# AND #$fechaFF# ORDER BY time";
   			}else{
 		#Consulta con todos los campos llenos
-    	$sql="SELECT acc_monitor_log.card_no, USERINFO.CardNo, acc_monitor_log.time, acc_monitor_log.event_point_name,acc_monitor_log.pin, acc_monitor_log.device_id, USERINFO.name FROM acc_monitor_log  INNER JOIN USERINFO ON acc_monitor_log.[card_no] = USERINFO.[CardNo] WHERE USERINFO.name='$nombre' AND USERINFO.CardNo='$cardNo' AND acc_monitor_log.time Between #$fechaIF# AND #$fechaFF#";
+    	$sql="SELECT acc_monitor_log.card_no, USERINFO.CardNo, acc_monitor_log.time, acc_monitor_log.event_point_name,acc_monitor_log.pin, acc_monitor_log.device_id, USERINFO.name FROM acc_monitor_log  INNER JOIN USERINFO ON acc_monitor_log.[card_no] = USERINFO.[CardNo] WHERE USERINFO.name='$nombre' AND USERINFO.CardNo='$cardNo' AND acc_monitor_log.time Between #$fechaIF# AND #$fechaFF# ORDER BY time";
   			}	
   	}
 	 	
 		#echo "<p>".$sql."</p>";
 		$result=odbc_exec($conn, $sql);
 		?>
-		<input  type="button" onclick="TableToExcel('Consulta', 'Registro de asistencia')" value="Descargar excel">
+		<br>
 		<table align="left" id="Consulta" width="40%" border="1">
 			<tr>
 				<td>Tarjeta</td>

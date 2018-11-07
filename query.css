@@ -1,11 +1,64 @@
+form{
+    position: relative;
+    left: 200px;
+}
+
 input{
-    margin: .4rem;
+    margin: 1rem;
+    
+}
+
+label{
+    display: inline-block;
+}
+
+p{
+    color: red;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+input[type=button]{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: white;
+    background-color: MediumSeaGreen;
+    height: 30px;
+  width: 140px;
+  position: relative;
+  
+  left:200px;
+      align-items: flex-start;
+    text-align: center;
+    cursor: default;
+    
+    box-sizing: border-box;
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonface;
+    border-image: initial;
+    
+}
+
+button{
+  height: 30px;
+  width: 100px;
 }
 
 table{
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 75%;
+    position: relative;
+    left: 75px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #2f2f2;
+    color: black;
 }
 
 table{
@@ -15,11 +68,3 @@ table{
 table tr:nth-child(even){background-color: #f2f2f2;}
 
 table tr:hover {background-color: #ddd;}
-
-table{
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: center;
-    background-color: #2f2f2;
-    color: black;
-}
