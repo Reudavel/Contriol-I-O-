@@ -9,4 +9,3 @@ var TableToExcel = (function() {
     window.location.href = uri + base64(format(template, ctx))
   }
 })()
-

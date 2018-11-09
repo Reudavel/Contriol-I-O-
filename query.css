@@ -13,7 +13,7 @@ label{
 }
 
 p{
-    color: red;
+    color: green;
 }
 
 input[type=number]::-webkit-inner-spin-button, 

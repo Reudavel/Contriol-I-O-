@@ -3,6 +3,7 @@
 <head>
 	
 	<link rel="stylesheet"  type="text/css"  href="query.css"/>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 	<title></title>
 	
 </head>
@@ -20,6 +21,9 @@
 		<input name="nombre" type="text"><br>
 		<button type="submit" value="Consulta" name="Consulta">Buscar</button> <button>Borrar</button>
 		<input type="button" onclick="TableToExcel('Consulta', 'Registro de asistencia')" value="Descargar excel"><br>
+		<input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+		
+
 	</form>
 	</div>
 	<?php 
@@ -114,7 +118,19 @@ if (empty($_POST["nombre"])) {
 	}
 
 ?>
-
+<script>
+	$('input[name="dates"]').daterangepicker();
+$(function() {
+  $('input[name="daterange"]').daterangepicker({
+    opens: 'left'
+  }, function(start, end, label) {
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  });
+});
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="TableToExcel.js"></script>
 </body>
 </html>
