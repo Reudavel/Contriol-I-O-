@@ -10,18 +10,21 @@
 <body>
 	<div>
 	<form name="formulario" method="post" action="">	
-		Periodo
-		<input name="fechaI" type="date"  label="Periodo">
-		--------------
-		<input name="fechaF" type="date" label="Periodo">
-		<br>
+		
 		<label for="cardNo">Numero de tarjeta.</label>
 		<input name="cardNo" type="number" maxlength="15"> 
 		<label for="nombre">Nombre.</label>
 		<input name="nombre" type="text"><br>
+		<div id=periodo>
+		Periodo
+		<input name="fechaI" type="date"  label="Periodo">
+		
+		<input name="fechaF" type="date" label="Periodo">
+		</div>
+		<br>
 		<button type="submit" value="Consulta" name="Consulta">Buscar</button> <button>Borrar</button>
 		<input type="button" onclick="TableToExcel('Consulta', 'Registro de asistencia')" value="Descargar excel"><br>
-		<input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+		
 		
 
 	</form>

@@ -1,15 +1,22 @@
 form{
     position: relative;
-    left: 200px;
+    background-color:rgba(129, 212, 250, .1);
 }
-
+#periodo{
+  position: relative;;
+  left:75px;
+}
 input{
     margin: 1rem;
+    border-radius: 5px;
+    height: 1.2rem;
     
 }
 
 label{
     display: inline-block;
+    font-style: roboto;
+    color: black;
 }
 
 p{
@@ -46,6 +53,16 @@ input[type=button]{
 button{
   height: 30px;
   width: 100px;
+  border-radius: 5px;
+  position: relative;
+  left:175px;
+  margin-right: 30px;
+}
+button:hover { 
+  background-color:rgba(0,255,0,0.3);
+  height: 30px;
+  width: 100px;
+  border-radius: 5px;
 }
 
 table{
